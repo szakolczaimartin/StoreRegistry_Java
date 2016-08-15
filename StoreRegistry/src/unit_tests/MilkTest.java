@@ -16,7 +16,8 @@ public class MilkTest
 	@Test
 	public void Depraved_InputNotDepraved_returnTrue()
 	{
-		Milk milk = new Milk(Capacity.LITER, new GregorianCalendar(2017, 04, 11), Drippig.FAT, 180, "MilkCompany");
+		Milk milk = new Milk(46878, Capacity.LITER, new GregorianCalendar(2017, 04, 11), Drippig.FAT, 180,
+				"MilkCompany");
 		Boolean result = milk.Depraved();
 		assertEquals(true, result);
 	}
@@ -24,7 +25,8 @@ public class MilkTest
 	@Test
 	public void Depraved_InputDepraved_returnFalse()
 	{
-		Milk milk = new Milk(Capacity.LITER, new GregorianCalendar(2016, 04, 11), Drippig.FAT, 180, "MilkCompany");
+		Milk milk = new Milk(45678, Capacity.LITER, new GregorianCalendar(2016, 04, 11), Drippig.FAT, 180,
+				"MilkCompany");
 		Boolean result = milk.Depraved();
 		assertEquals(false, result);
 	}
@@ -32,7 +34,8 @@ public class MilkTest
 	@Test
 	public void Depraved_InputThisDay_returnTrue()
 	{
-		Milk milk = new Milk(Capacity.LITER, new GregorianCalendar(2016, 07, 06), Drippig.FAT, 180, "MilkCompany");
+		Milk milk = new Milk(45678, Capacity.LITER, new GregorianCalendar(2016, 07, 06), Drippig.FAT, 180,
+				"MilkCompany");
 		Boolean result = milk.Depraved();
 		assertEquals(true, result);
 	}

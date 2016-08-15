@@ -10,9 +10,11 @@ public class Milk
 	private Drippig drippig;
 	private int price;
 	private String company;
+	private long barCode;
 
-	public Milk(Capacity capacity, Calendar warrant, Drippig drippig, int price, String company)
+	public Milk(long barCode, Capacity capacity, Calendar warrant, Drippig drippig, int price, String company)
 	{
+		this.barCode = barCode;
 		this.capacity = capacity;
 		this.warrant = warrant;
 		this.drippig = drippig;
@@ -25,6 +27,11 @@ public class Milk
 	public Capacity getCapacity()
 	{
 		return capacity;
+	}
+
+	public long getbarCode()
+	{
+		return barCode;
 	}
 
 	public void setCapacity(Capacity capacity)
@@ -96,6 +103,6 @@ public class Milk
 		return " Capacity: " + capacity + " (" + capacity.ShowCapacity() + "ml)" + "\n Warrant: "
 				+ warrant.get(Calendar.YEAR) + "-" + warrant.get(Calendar.MONTH) + "-"
 				+ warrant.get(Calendar.DAY_OF_MONTH) + "\n Price: " + price + "Ft" + "\n Company: " + company
-				+ "\n Drippig: " + drippig + " (" + drippig.ShowDrippig() + "%)";
+				+ "\n Drippig: " + drippig + " (" + drippig.ShowDrippig() + "%)" + "\n Bar Code: " + barCode;
 	}
 }
