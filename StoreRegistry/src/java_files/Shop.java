@@ -1,5 +1,6 @@
 package java_files;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Shop
@@ -9,14 +10,14 @@ public class Shop
 	private String address;
 	private String owner;
 
-	private Hashtable<Long, Milk> milkBar;
+	private Hashtable foodBar;
 
-	public Shop(String name, String address, String owner, Hashtable<Long, Milk> milkbar)
+	public Shop(String name, String address, String owner, Hashtable foodBar)
 	{
 		this.name = name;
 		this.address = address;
 		this.owner = owner;
-		this.milkBar = milkbar;
+		this.foodBar = foodBar;
 
 	}
 
@@ -43,78 +44,99 @@ public class Shop
 		return owner;
 	}
 
-	public boolean ThereAreMilk()
+	public boolean ThereAreTypeOfProduct(Class c)
 	{
-		if (milkBar.isEmpty())
+		for (Enumeration e = foodBar.elements(); e.hasMoreElements();)
 		{
-			System.out.println("Nincs tej,");
-			return false;
-
+			ShopRegistry b = (ShopRegistry) e.nextElement();
+			if (c.isInstance(b.getFood()) && b.getQuantity() > 0)
+				return true;
 		}
-		System.out.println("Van benne tej");
-		return true;
+		return false;
 
 	}
 
-	public void boughtMilk(Milk milk)
+	public boolean ThereAreMilk()
 	{
-		milkBar.remove(milk.getbarCode());
+		return ThereAreTypeOfProduct(Milk.class);
+	}
+
+	public boolean ThereAreCheese()
+	{
+		return ThereAreTypeOfProduct(Cheese.class);
+	}
+
+	public void fillingFood(long barCode, long quantity)
+	{
+		ShopRegistry shopRegitry = (ShopRegistry) foodBar.get(barCode);
+		shopRegitry.addQuantity(quantity);
+
+	}
+
+	public void newProduct(Food food, long quantity, long price)
+	{
+		ShopRegistry shopRegistry = new ShopRegistry(food, quantity, price);
+	}
+
+	public void boughtFood(Food food)
+	{
+		foodBar.remove(food.getBarCode());
 		System.out.println("Succes buy");
 
 	}
 
 	public class ShopRegistry
 	{
-		private Milk milk;
-		private int quantity;
-		private int price;
+		private Food food;
+		private long quantity;
+		private long price;
 
-		public ShopRegistry(Milk milk, int quantity, int price)
+		public ShopRegistry(Food food, long quantity, long price)
 		{
-			this.milk = milk;
+			this.food = food;
 			this.quantity = quantity;
 			this.price = price;
 		}
 
-		public Milk getMilk()
+		public Food getFood()
 		{
-			return milk;
+			return food;
 		}
 
-		public void setMilk(Milk milk)
+		public void setFood(Food food)
 		{
-			this.milk = milk;
+			this.food = food;
 		}
 
-		public int getQuantity()
+		public long getQuantity()
 		{
 			return quantity;
 		}
 
-		public void setQuantity(int quantity)
+		public void setQuantity(long quantity)
 		{
 			this.quantity = quantity;
 		}
 
-		public int getPrice()
+		public long getPrice()
 		{
 			return price;
 		}
 
-		public void setPrice(int price)
+		public void setPrice(long price)
 		{
 			this.price = price;
 		}
 
-		public void sellQuantity(int db)
+		public void sellQuantity(long db)
 		{
-			this.quantity = quantity - db;
+			this.quantity -= db;
 
 		}
 
-		public void addQuantity(int db)
+		public void addQuantity(long db)
 		{
-			this.quantity = quantity + db;
+			this.quantity += db;
 
 		}
 
